@@ -1,0 +1,65 @@
+.listItem {
+  font-weight: 600;
+  list-style: none;
+  font-size: 20px;
+}
+
+.linkItem {
+  /* text-decoration: none; */
+  text-decoration-color: rgb(224, 65, 65);
+  color: black;
+  letter-spacing: 0.05em;
+}
+
+.linkItem:hover,
+.linkItem:focus {
+  /* text-decoration: underline; */
+  color: rgb(224, 65, 65);
+}
+
+.linkItem:visited {
+  color: rgb(224, 65, 65);
+}
+
+.searchButton {
+  background-color: #000;
+  color: #fff;
+  border-radius: 4px;
+  padding: 5px 10px;
+  letter-spacing: 0.07em;
+  margin-left: 5px;
+}
+
+.searchButton:hover,
+.searchButton:focus {
+  cursor: pointer;
+  box-shadow: 0px 5px 4px 0px rgba(34, 60, 80, 0.32);
+}
+
+.inputForm {
+  width: 250px;
+  height: 25px;
+  border-radius: 4px;
+  letter-spacing: 0.07em;
+  padding-left: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.searchForm {
+  margin-top: 50px;
+}
+
+.homeSection {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.homeTitle {
+  text-align: center;
+}
+
+.form {
+  padding-right: 30px;
+  padding-left: 30px;
+}
