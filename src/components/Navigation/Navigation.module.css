@@ -11,7 +11,7 @@
 
 .activeLink {
   composes: navLink;
-  color: rgb(224, 65, 65);
+  color: rgb(226, 34, 28);
 }
 
 .navBar {

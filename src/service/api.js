@@ -22,11 +22,11 @@ export const searchMovie = (query, page = 1) => {
     });
 };
 
-// https://api.themoviedb.org/3/movie/56443?api_key=ff289dac182df51deedab30d3c7629dd&language=en-US
+// https://api.themoviedb.org/3/movie/783658?api_key=ff289dac182df51deedab30d3c7629dd
 export const detailsAboutMovie = (id) => {
   return axios
     .get(`movie/${id}?api_key=${API_KEY}`)
-    .then(({ data }) => data.results)
+    .then(({ data }) => data)
     .catch((err) => {
       throw err;
     });
@@ -36,7 +36,7 @@ export const detailsAboutMovie = (id) => {
 export const creditsMovie = (id) => {
   return axios
     .get(`movie/${id}/credits?api_key=${API_KEY}`)
-    .then(({ data }) => data.results)
+    .then(({ data }) => data.cast)
     .catch((err) => {
       throw err;
     });
