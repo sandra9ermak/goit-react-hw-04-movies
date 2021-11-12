@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import s from "./Views.module.css"
 import { useEffect, useState } from "react";
 import { trendMovie } from "../service/api";
+import PropTypes from 'prop-types';
 
 const HomePageView = () => {
   const [movies, setMovies] = useState([]);
@@ -28,3 +29,13 @@ const HomePageView = () => {
 };
 
 export default HomePageView;
+
+HomePageView.propTypes = {
+    movies: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            poster_path: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+            release_date: PropTypes.number.isRequired
+        }))
+}

@@ -1,7 +1,8 @@
 import s from "./Views.module.css";
 import { creditsMovie } from "../service/api";
 import { useEffect, useState } from "react";
-import defaultImg from "../img/defaultImg.jpg"
+import defaultImg from "../img/defaultImg.jpg";
+import PropTypes from 'prop-types';
 
 const CastList = ({movieId}) => {
     const [castMovie, setCastMovie] = useState([]);
@@ -28,3 +29,14 @@ const CastList = ({movieId}) => {
 }
 
 export default CastList;
+
+CastList.propTypes = {
+    castMovie: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            profile_path: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            character: PropTypes.string.isRequired
+        }))
+}

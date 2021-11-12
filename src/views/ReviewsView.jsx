@@ -1,6 +1,7 @@
 import s from "./Views.module.css";
 import { reviewsMovie } from "../service/api";
 import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 
 const Reviews = ({movieId}) => {
     const [reviewMovie, setReviewsMovie] = useState([]);
@@ -28,3 +29,12 @@ const Reviews = ({movieId}) => {
 }
 
 export default Reviews;
+
+Reviews.propTypes = {
+    reviewMovie: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            author: PropTypes.string.isRequired,
+            content: PropTypes.string.isRequired
+        }))
+}

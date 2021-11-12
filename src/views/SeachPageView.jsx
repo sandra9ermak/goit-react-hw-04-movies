@@ -5,27 +5,14 @@ import s from "./Views.module.css";
 import { useHistory, useLocation } from "react-router";
 import queryString from 'query-string';
 import Notiflix from "notiflix";
+import PropTypes from 'prop-types';
 
 const MoviesPageView = () => {
   const [searchForm, setSearchForm] = useState("");
   const [inputQuery, setInputQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
-  const location = useLocation();
+  // const location = useLocation();
   const history = useHistory();
-
-  // const queryParams = queryString.parse(location.search);
-  // history.push({
-  //   pathname: location.pathname,
-  //   search: `query=${query}`
-  // })
-  const queryChange = (query) => {
-    console.log(location);
-    history.push({
-      ...location,
-      search: `query=${query}`
-    })
-  }
 
   useEffect(() => {
     if (searchForm) {
@@ -38,18 +25,18 @@ const MoviesPageView = () => {
       });
     }
     }, [inputQuery, searchForm]);
-  // }, useHistory.push(...location[ inputQuery]));
 
    const submitSearchForm = (e) => {
     e.preventDefault();
     setSearchForm(inputQuery);
     if (inputQuery !== searchForm) {
-      setPage(1);
       setMovies([]);
      }
      if (inputQuery.trim() === "") {
        return Notiflix.Notify.warning("Please enter something!");
-      }
+     }
+     history.push({ ...history.location, search: `?query=${inputQuery}` });
+    //  console.log(location);
   };
 
   const handleChange = (e) => {
@@ -81,3 +68,11 @@ const MoviesPageView = () => {
 }
 
 export default MoviesPageView;
+
+MoviesPageView.propTypes = {
+    movies: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            title: PropTypes.string.isRequired
+        }))
+}
