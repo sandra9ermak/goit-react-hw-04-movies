@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import s from "./Views.module.css"
+import s from "./Views.module.css";
 import { useEffect, useState } from "react";
 import { trendMovie } from "../service/api";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const HomePageView = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     trendMovie().then((results) => {
-        setMovies(results);
+      setMovies(results);
     });
   }, []);
 
@@ -17,25 +17,37 @@ const HomePageView = () => {
     <section className={s.homeSection}>
       <h1 className={s.homeTitle}>Trending today</h1>
       <div className={s.homeListDiv}>
-        {!!movies.length && movies.map((item) => <div key={item.id} className={s.listHomeItem}><Link to={`/movies/${item.id}`} className={s.linkItem}>
-          <img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title} width="280" height="400" />
-          <p className={s.liTitle}>{item.title}</p>
-          </Link>
-          <p className={s.liDate}>{new Date(item.release_date).getFullYear()}</p>
-        </div>)}
-    </div>
+        {!!movies.length &&
+          movies.map((item) => (
+            <div key={item.id} className={s.listHomeItem}>
+              <Link to={`/movies/${item.id}`} className={s.linkItem}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                  alt={item.title}
+                  width="280"
+                  height="400"
+                />
+                <p className={s.liTitle}>{item.title}</p>
+              </Link>
+              <p className={s.liDate}>
+                {new Date(item.release_date).getFullYear()}
+              </p>
+            </div>
+          ))}
+      </div>
     </section>
-  )
+  );
 };
 
 export default HomePageView;
 
 HomePageView.propTypes = {
-    movies: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            poster_path: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-            release_date: PropTypes.number.isRequired
-        }))
-}
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      poster_path: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      release_date: PropTypes.number.isRequired,
+    })
+  ),
+};

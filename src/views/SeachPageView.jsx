@@ -5,74 +5,82 @@ import s from "./Views.module.css";
 import { useHistory, useLocation } from "react-router";
 import queryString from 'query-string';
 import Notiflix from "notiflix";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-const MoviesPageView = () => {
-  const [searchForm, setSearchForm] = useState("");
+const SearchPageView = () => {
   const [inputQuery, setInputQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  // const location = useLocation();
+  const location = useLocation();
   const history = useHistory();
-
+  const parsedQuery = queryString.parse(location.search).query;
+  
   useEffect(() => {
-    if (searchForm) {
-      searchMovie(inputQuery).then((results) => {
+    if (location.search) {
+      searchMovie(parsedQuery).then((results) => {
         if (results.length === 0) {
-          return Notiflix.Notify.failure(`There is no results with ${inputQuery.toUpperCase()} request`);
-        } else {
-          setMovies(results);
-        }
-      });
-    }
-    }, [inputQuery, searchForm]);
-
-   const submitSearchForm = (e) => {
+          return Notiflix.Notify.failure(
+            `There is no results with ${parsedQuery.toUpperCase()} request`
+            );
+          } else {
+            setMovies(results);
+          }
+        });
+      }
+    }, [location, parsedQuery])
+    
+  const submitSearchForm = (e) => {
     e.preventDefault();
-    setSearchForm(inputQuery);
-    if (inputQuery !== searchForm) {
-      setMovies([]);
-     }
-     if (inputQuery.trim() === "") {
-       return Notiflix.Notify.warning("Please enter something!");
-     }
-     history.push({ ...history.location, search: `?query=${inputQuery}` });
-    //  console.log(location);
+    if (inputQuery.trim() === "") {
+      return Notiflix.Notify.warning("Please enter something!");
+    }
+    history.push({ ...history.location, search: `?query=${inputQuery}` });
   };
-
+  
   const handleChange = (e) => {
     setInputQuery(e.target.value);
   };
 
   return (
-      <section className={s.form}>
-        <form className={s.searchForm} onSubmit={submitSearchForm}>
+    <section className={s.form}>
+      <form className={s.searchForm} onSubmit={submitSearchForm}>
         <input
           onChange={handleChange}
           className={s.inputForm}
-      type="text"
-      autoComplete="off"
-      autoFocus
-      placeholder="Search movies"
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search movies"
         />
-      <button type="submit" className={s.searchButton}>Search
-      </button>
+        <button type="submit" className={s.searchButton}>
+          Search
+        </button>
       </form>
       <div>
         <ul className={s.searchList}>
-                {!!movies.length && movies.map((item) => <li key={item.id} className={s.listItem}><Link to={`/movies/${item.id}`} className={s.linkItem}>{item.title}</Link></li>
-            )}
-            </ul>
+          {!!movies.length &&
+            movies.map((item) => (
+              <li key={item.id} className={s.listItem}>
+                <Link to={{
+                  pathname: `/movies/${item.id}`,
+                  state: { from: location },
+                }} className={s.linkItem}>
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+        </ul>
       </div>
-      </section>
-    )
-}
+    </section>
+  );
+};
 
-export default MoviesPageView;
+export default SearchPageView;
 
-MoviesPageView.propTypes = {
-    movies: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            title: PropTypes.string.isRequired
-        }))
-}
+SearchPageView.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ),
+};

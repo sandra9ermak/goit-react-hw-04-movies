@@ -20,20 +20,20 @@ const App = () => {
   return (
     <div className="App">
       <div className="container">
-        <Navigation></Navigation>
+        <Navigation />
         <Suspense fallback={<h1>Loading...</h1>}>
           <Switch>
             <Route path="/" exact>
-              <HomePageView></HomePageView>
+              <HomePageView />
             </Route>
             <Route path="/movies" exact>
-              <SeachPageView></SeachPageView>
+              <SeachPageView />
             </Route>
             <Route path="/movies/:movieId">
-              <DetailsMovieView></DetailsMovieView>
+              <DetailsMovieView />
             </Route>
             <Route>
-              <NotFoundPageView></NotFoundPageView>
+              <NotFoundPageView />
             </Route>
           </Switch>
         </Suspense>
