@@ -1,5 +1,5 @@
-import s from "./Views.module.css";
-import { reviewsMovie } from "../service/api";
+import s from "../../views/Views.module.css";
+import { reviewsMovie } from "../../service/api";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 

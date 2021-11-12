@@ -1,7 +1,7 @@
-import s from "./Views.module.css";
-import { creditsMovie } from "../service/api";
+import s from "../../views/Views.module.css";
+import { creditsMovie } from "../../service/api";
 import { useEffect, useState } from "react";
-import defaultImg from "../img/defaultImg.jpg";
+import defaultImg from "../../img/defaultImg.jpg";
 import PropTypes from "prop-types";
 
 const CastList = ({ movieId }) => {

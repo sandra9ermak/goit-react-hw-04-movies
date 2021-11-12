@@ -6,6 +6,7 @@ import { useHistory, useLocation } from "react-router";
 import queryString from 'query-string';
 import Notiflix from "notiflix";
 import PropTypes from "prop-types";
+import SearchForm from "../components/SearchForm/SearchForm";
 
 const SearchPageView = () => {
   const [inputQuery, setInputQuery] = useState("");
@@ -42,19 +43,7 @@ const SearchPageView = () => {
 
   return (
     <section className={s.form}>
-      <form className={s.searchForm} onSubmit={submitSearchForm}>
-        <input
-          onChange={handleChange}
-          className={s.inputForm}
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search movies"
-        />
-        <button type="submit" className={s.searchButton}>
-          Search
-        </button>
-      </form>
+      <SearchForm onSubmit={submitSearchForm} onChange={handleChange} />
       <div>
         <ul className={s.searchList}>
           {!!movies.length &&
